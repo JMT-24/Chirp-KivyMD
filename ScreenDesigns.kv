@@ -1,0 +1,634 @@
+<LoginScreen>:
+    name: 'loginScreen'
+    MDFloatLayout:
+        MDLabel:
+            size_hint_y: None
+            height: 150
+            pos_hint: {'center_x':0.5, 'center_y': .85}
+        MDLabel:
+            text: "Log in to Chirp"
+            halign: "center"
+            font_style: "H4"
+            size_hint_y: None
+            pos_hint: {'center_x':0.5, 'center_y':0.6}
+        MDTextField:
+            id: username_input
+            hint_text: "Enter username"
+            icon_left: "account"
+            pos_hint: {'center_x':0.5, 'center_y':0.48}
+            size_hint_x: None 
+            width: 220
+            md_bg_color: app.theme_cls.primary_dark
+            write_tab: False
+        MDTextField:
+            id: password_input
+            password: True
+            hint_text: "Enter password"
+            icon_left: "lock"
+            pos_hint: {'center_x':0.5, 'center_y':0.37}
+            size_hint_x: None 
+            width: 220
+            md_bg_color: app.theme_cls.primary_dark
+            multiline: False
+            on_text_validate: app.login_validation(username_input.text, password_input.text)
+        MDRoundFlatButton:
+            md_bg_color: 0,0,0,1
+            line_color: 0,0,0,1
+            text_color: "white"
+            text: "Log in" 
+            pos_hint: {'center_x':0.5, 'center_y':0.25}
+            font_size: 20
+            size_hint_x: 0.6
+            size_hint_y: 0.08
+            on_release: app.login_validation(username_input.text, password_input.text)
+        MDLabel:
+            text: "Don't have an account?"
+            theme_text_color: "Hint"
+            halign: "center"
+            font_style: "Caption"
+            size_hint_y: .08
+            size_hint_x: 0.4
+            pos_hint: {'center_x':0.42, 'center_y':0.18}
+        MDTextButton:
+            text: "Sign up"
+            text_size: self.width, self.height
+            underline: True
+            valign: "center"
+            halign: "center"
+            pos_hint: {"center_x": 0.69, "center_y": 0.18}
+            font_style: "Caption"
+            theme_text_color: "Custom"
+            text_color: 0.3607, 0.3882, .5
+            height: 30
+            width: 50
+            on_release: app.changescreen_to_signupscreen()
+
+<SignUpScreen>
+    name: 'signUpScreen'
+    MDFloatLayout:
+        MDLabel:
+            text: "Sign Up to Chirp"
+            halign: "center"
+            pos_hint: {'center_x':0.5, 'center_y':0.77}
+            font_style: "H4"
+        MDTextField:
+            id: firstname_input
+            hint_text: "Enter firstname"
+            icon_left: "account-details"
+            pos_hint: {'center_x':0.5, 'center_y':0.68}
+            size_hint_x: None 
+            width: 220
+            write_tab: False
+        MDTextField:
+            id: lastname_input
+            hint_text: "Enter lastname"
+            icon_left: "account-details"
+            pos_hint: {'center_x':0.5, 'center_y':0.60}
+            size_hint_x: None 
+            width: 220
+            write_tab: False
+        MDTextField:
+            id: username_input
+            hint_text: "Enter username"
+            icon_left: "account-edit"
+            pos_hint: {'center_x':0.5, 'center_y':0.52}
+            size_hint_x: None 
+            width: 220
+            write_tab: False
+        MDTextField:
+            id: email_input
+            hint_text: "Enter email"
+            icon_left: "email-edit"
+            pos_hint: {'center_x':0.5, 'center_y':0.44}
+            size_hint_x: None 
+            width: 220
+            write_tab: False
+        MDTextField:
+            id: password_input
+            password: True
+            hint_text: "Enter password"
+            icon_left: "lock-open-plus"
+            pos_hint: {'center_x':0.5, 'center_y':0.36}
+            size_hint_x: None 
+            width: 220
+            write_tab: False
+        MDTextField:
+            id: confirm_password_input
+            password: True
+            hint_text: "Confirm password"
+            icon_left: "lock-check"
+            pos_hint: {'center_x':0.5, 'center_y':0.28}
+            size_hint_x: None 
+            width: 220
+            multiline: False
+            on_text_validate: app.register_validation(firstname_input.text, lastname_input.text, username_input.text, email_input.text, password_input.text, confirm_password_input.text)
+        MDRoundFlatButton:
+            md_bg_color: 0,0,0,1
+            text_color: "white"
+            text: "Sign Up" 
+            font_size: 20
+            size_hint_x: 0.6
+            size_hint_y: 0.08
+            pos_hint: {'center_x':0.5, 'center_y':0.17}
+            border: False
+            line_color: 0,0,0,1
+            on_release: app.register_validation(firstname_input.text, lastname_input.text, username_input.text, email_input.text, password_input.text, confirm_password_input.text)      
+        MDLabel:
+            text: "Already have an account?"
+            theme_text_color: "Hint"
+            halign: "center"
+            pos_hint: {'center_x':0.43, 'center_y':0.1}
+            font_style: "Caption"
+        MDTextButton:
+            text: "Log in"
+            underline: True
+            halign: "center"
+            font_style: "Caption"
+            pos_hint: {"center_x": 0.69, "center_y": 0.1}
+            theme_text_color: "Custom"
+            text_color: 0.3607, 0.3882, 1
+            on_release: app.changescreen_to_loginscreen()
+
+<HomeScreen>
+    name: 'homeScreen'
+    MDFloatLayout:
+        MDTopAppBar:
+            title: "Home"
+            left_action_items: [["language-python", lambda x: app.changescreen_to_loginscreen()]]
+            right_action_items: [["menu", lambda x: app.dropdown(x)]]
+            pos_hint: {'top': 1}
+            specific_text_color: app.theme_cls.primary_color
+            specific_text_hue: app.theme_cls.primary_hue
+            md_bg_color: 0,0,0,1
+        ScrollView:
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5} 
+            size_hint: None, None
+            size: 350, 470 
+            MDList:
+                id: card_items
+                padding: dp(25), dp(0), dp(0), dp(0)
+                spacing: dp(25)
+        MDTopAppBar:
+            left_action_items: [["earth"], ["chat-processing", lambda x: app.message_action()], ["account-multiple-outline", lambda x: app.friends_action()], ["account-circle", lambda x: app.profile_action()]]
+            specific_text_color: app.theme_cls.primary_color
+            specific_text_hue: app.theme_cls.primary_hue
+            md_bg_color: 0,0,0,1
+        MDIconButton:
+            icon: "pencil"
+            md_bg_color: app.theme_cls.primary_color
+            theme_icon_color: "Custom"
+            theme_text_color: "ContrastParentBackground"
+            icon_color: 0,0,0,1
+            pos_hint: {'center_x':0.8, 'center_y':0.1}
+            size_hint: (.2, .13)
+            on_release: app.createPost_action()
+
+<MessageScreen>
+    name: 'messageScreen'
+    MDFloatLayout:
+        MDTopAppBar:
+            title: "Messages"
+            left_action_items: [["language-python", lambda x: app.changescreen_to_loginscreen()]]
+            right_action_items: [["menu", lambda x: app.dropdown(x)]]
+            pos_hint: {'top': 1}
+            specific_text_color: app.theme_cls.primary_color
+            specific_text_hue: app.theme_cls.primary_hue
+            md_bg_color: 0,0,0,1
+        ScrollView:
+            pos_hint: {'center_x': 0.5, 'center_y': 0.48} 
+            size_hint: None, None
+            size: 320, 470 
+            MDList:
+                id: message_list
+                padding: dp(8), dp(8)
+                spacing: dp(8)
+                size_hint_y: None
+                height: self.minimum_height
+        MDTopAppBar:
+            left_action_items: [["earth", lambda x: app.back_home_action()], ["chat-processing"], ["account-multiple-outline", lambda x: app.friends_action()], ["account-circle", lambda x: app.profile_action()]]
+            specific_text_color: app.theme_cls.primary_color
+            specific_text_hue: app.theme_cls.primary_hue
+            md_bg_color: 0,0,0,1
+        MDIconButton:
+            icon: "chat"
+            md_bg_color: app.theme_cls.primary_color
+            theme_icon_color: "Custom"
+            theme_text_color: "ContrastParentBackground"
+            icon_color: 0,0,0,1
+            pos_hint: {'center_x':0.8, 'center_y':0.1}
+            size_hint: (.2, .13)
+            on_release: app.createMessage_action()
+
+<FriendScreen>
+    name: 'friendScreen'
+    on_enter: app.display_friendsList()
+    MDFloatLayout:
+        MDTopAppBar:
+            title: "Friends"
+            left_action_items: [["language-python", lambda x: app.changescreen_to_loginscreen()]]
+            right_action_items: [["menu", lambda x: app.dropdown(x)]]
+            pos_hint: {'top': 1}
+            specific_text_color: app.theme_cls.primary_color
+            specific_text_hue: app.theme_cls.primary_hue
+            md_bg_color: 0,0,0,1
+        ScrollView:
+            pos_hint: {'center_x': 0.5, 'center_y': 0.48} 
+            size_hint: None, None
+            size: 320, 470 
+            MDList:
+                id: user_list
+                padding: dp(8), dp(8)
+                spacing: dp(8)
+                size_hint_y: None
+                height: self.minimum_height
+        MDTopAppBar:
+            left_action_items: [["earth", lambda x: app.back_home_action()], ["chat-processing", lambda x: app.message_action()], ["account-multiple-outline"], ["account-circle", lambda x: app.profile_action()]]
+            specific_text_color: app.theme_cls.primary_color
+            specific_text_hue: app.theme_cls.primary_hue
+            md_bg_color: 0,0,0,1
+        MDIconButton:
+            icon: "account-search-outline"
+            md_bg_color: app.theme_cls.primary_color
+            theme_icon_color: "Custom"
+            theme_text_color: "ContrastParentBackground"
+            icon_color: 0,0,0,1
+            pos_hint: {'center_x':0.8, 'center_y':0.1}
+            size_hint: (.2, .13)
+            on_release: app.addFriend_action()
+
+#<CardItem@RelativeLayout>:
+    #profile_image_source: ""
+    #MDCard:
+        #style: "filled"
+        #pos_hint: {"center_x": .5}
+        #size_hint: None, None
+        #size: 300, 200
+        #theme_bg_color: "Custom"
+        #md_bg_color: "black"
+        #MDFloatLayout:
+            #MDCard:
+                #pos_hint: {"center_x": .12, "center_y": 0.83}
+                #radius: 50
+                #size_hint: .15, .22
+                #FitImage:
+                    #source: root.profile_image_source
+                    #radius: 60, 60, 60, 60
+            #MDLabel:
+                #pos_hint: {"center_x": .5, "center_y": .85}
+                #id: users_fullname
+                #adaptive_size: True
+                #color: "white"
+                #pos: "12dp", "12dp"
+            #MDCard:
+                #style: "filled"
+                #pos_hint: {"center_x": .5, "center_y": .37}
+                #size_hint: None, None
+                #size: 280, 120
+                #theme_bg_color: "Custom"
+                #md_bg_color: "white"
+                #MDTextField:
+                    #id: content_input
+                    #halign: "center"
+                    #pos_hint: {"center_x": .5, "center_y": .5}
+                    #multiline: True
+                    #max_text_length: 95
+
+<ProfileScreen>
+    name: 'profileScreen'
+    on_enter: app.display_userFullname("profileScreen")
+    on_enter: app.display_userUsername()
+    MDFloatLayout:
+        MDTopAppBar:
+            title: "Profile"
+            left_action_items: [["language-python", lambda x: app.changescreen_to_loginscreen()]]
+            right_action_items: [["menu", lambda x: app.dropdown(x)]]
+            pos_hint: {'top': 1}
+            specific_text_color: app.theme_cls.primary_color
+            specific_text_hue: app.theme_cls.primary_hue
+            md_bg_color: 0,0,0,1
+        MDCard:
+            pos_hint: {"center_x": .5, "center_y": 0.78}
+            radius: 50
+            size_hint: .3, .18
+            FitImage:
+                id: profile_image
+                source: app.get_profile_pic()
+                radius: 60, 60, 60, 60
+        MDLabel:
+            id: users_fullname
+            halign: "center"
+            font_style: "H6"
+            pos_hint: {"center_x": .5, "center_y": 0.65}
+        MDLabel:
+            id: users_username
+            halign: "center"
+            font_style: "Subtitle1"
+            pos_hint: {"center_x": .5, "center_y": 0.60}
+        ScrollView:
+            pos_hint: {'center_x': 0.5, 'center_y': 0.34} 
+            size_hint: None, None
+            size: 350, 270 
+            MDList:
+                id: card_items
+                padding: dp(25), dp(0), dp(0), dp(0)
+                spacing: dp(25)
+        MDTopAppBar:
+            left_action_items: [["earth", lambda x: app.back_home_action()], ["chat-processing", lambda x: app.message_action()], ["account-multiple-outline", lambda x: app.friends_action()], ["account-circle"]]
+            specific_text_color: app.theme_cls.primary_color
+            specific_text_hue: app.theme_cls.primary_hue
+            md_bg_color: 0,0,0,1
+        MDIconButton:
+            icon: "account-cog-outline"
+            md_bg_color: app.theme_cls.primary_color
+            theme_icon_color: "Custom"
+            theme_text_color: "ContrastParentBackground"
+            icon_color: 0,0,0,1
+            pos_hint: {'center_x':0.8, 'center_y':0.1}
+            size_hint: (.2, .13)
+            on_release: app.editProfile_action()
+
+<SettingsScreen>
+    name: 'settingsScreen'
+    MDFloatLayout:
+        MDTopAppBar:
+            title: "Settings"
+            left_action_items: [["undo", lambda x: app.back_to_beforeScreen()]]
+            right_action_items: [["", "", ""]]
+            pos_hint: {'top': 1}
+            specific_text_color: app.theme_cls.primary_color
+            specific_text_hue: app.theme_cls.primary_hue
+            md_bg_color: 0,0,0,1
+        MDLabel:
+            text: "This is the settings page. You can edit profile and app preferences here."
+            halign: "center"
+
+<AddFriendScreen>
+    name: 'addFriendScreen'
+    on_enter: app.display_allUsers()
+    MDFloatLayout:
+        MDTopAppBar:
+            title: "Search"
+            left_action_items: [["undo", lambda x: app.back_to_beforeScreen()]]
+            right_action_items: [["", "", ""]]
+            pos_hint: {'top': 1}
+            specific_text_color: app.theme_cls.primary_color
+            specific_text_hue: app.theme_cls.primary_hue
+            md_bg_color: 0,0,0,1
+        MDTextField:
+            id: search_field
+            hint_text: "Search User"
+            icon_right: "magnify"
+            pos_hint: {'center_x': 0.5, 'center_y': 0.82}
+            size_hint_x: None 
+            width: 270
+            on_text: app.on_search(self, self.text)
+        ScrollView:
+            pos_hint: {'center_x': 0.5, 'center_y': 0.4} 
+            size_hint: None, None
+            size: 320, 420 
+            MDList:
+                id: user_list
+                padding: dp(8), dp(8)
+                spacing: dp(8)
+                size_hint_y: None
+                height: self.minimum_height
+
+<CreatePostScreen>
+    name: 'createPostScreen'
+    on_enter: app.display_userFullname("createPostScreen")
+    MDFloatLayout:
+        MDTopAppBar:
+            title: "Create Post"
+            left_action_items: [["undo", lambda x: app.back_to_beforeScreen()]]
+            right_action_items: [["", "", ""]]
+            pos_hint: {'top': 1}
+            specific_text_color: app.theme_cls.primary_color
+            specific_text_hue: app.theme_cls.primary_hue
+            md_bg_color: 0,0,0,1
+        MDCard:
+            style: "filled"
+            pos_hint: {"center_x": .5, "center_y": .55}
+            size_hint: None, None
+            size: "270dp", "280dp"
+            # Sets custom properties.
+            theme_bg_color: "Custom"
+            md_bg_color: "black"
+
+            MDFloatLayout:
+                MDCard:
+                    pos_hint: {"center_x": .15, "center_y": 0.85}
+                    radius: 50
+                    size_hint: .13, .13
+                    FitImage:
+                        id: profile_image
+                        source: app.get_profile_pic()
+                        radius: 60, 60, 60, 60
+                MDLabel:
+                    pos_hint: {"center_x": .5, "center_y": .85}
+                    id: users_fullname
+                    adaptive_size: True
+                    color: "white"
+                    pos: "12dp", "12dp"
+                MDCard:
+                    style: "filled"
+                    pos_hint: {"center_x": .5, "center_y": .4}
+                    size_hint: None, None
+                    size: "250dp", "170dp"
+                    # Sets custom properties.
+                    theme_bg_color: "Custom"
+                    md_bg_color: "white"
+                    MDTextField:
+                        id: content_input
+                        halign: "center"
+                        pos_hint: {"center_x": .5, "center_y": .5}
+                        multiline: True
+                        max_text_length: 95
+        MDRectangleFlatButton:
+            pos_hint: {"center_x": .5, "center_y": .25}
+            md_bg_color: 0,0,0,1
+            line_color: 0,0,0,1
+            text_color: "white"
+            text: "Post" 
+            font_size: 20
+            size_hint_x: 0.75
+            size_hint_y: 0.08
+            on_release: app.create_post(content_input.text)
+                    
+<CreateMessageScreen>
+    name: 'createMessageScreen'
+    MDFloatLayout:
+        MDTopAppBar:
+            title: "Create Message"
+            left_action_items: [["undo", lambda x: app.back_to_beforeScreen()]]
+            right_action_items: [["", "", ""]]
+            pos_hint: {'top': 1}
+            specific_text_color: app.theme_cls.primary_color
+            specific_text_hue: app.theme_cls.primary_hue
+            md_bg_color: 0,0,0,1
+        MDLabel:
+            text: "This is the create message page. You can create your message here and pick a recipient based on your friends list."
+            halign: "center"
+
+<MessageLogScreen>
+    name: 'messageLogScreen'
+    MDFloatLayout:
+        MDTopAppBar:
+            id: messageLog_friendName
+            title: "Friend Name"
+            left_action_items: [["undo", lambda x: app.back_to_beforeScreen()]]
+            right_action_items: [["", "", ""]]
+            pos_hint: {'top': 1}
+            specific_text_color: app.theme_cls.primary_color
+            specific_text_hue: app.theme_cls.primary_hue
+            md_bg_color: 0,0,0,1
+        MDCard:
+            pos_hint: {"center_x": .87, "center_y": 0.945}
+            radius: 50
+            size_hint: (.14, .08)
+            FitImage:
+                id: messageLog_friendPic
+                radius: 60, 60, 60, 60
+        ScrollView:
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5} 
+            size_hint: None, None
+            size: 350, 470 
+            MDList:
+                id: message_logs
+                padding: dp(25), dp(0), dp(0), dp(0)
+                spacing: dp(15)
+        MDTopAppBar:
+            specific_text_color: app.theme_cls.primary_color
+            specific_text_hue: app.theme_cls.primary_hue
+            md_bg_color: 0,0,0,1
+            MDCard:
+                style: "filled"
+                size_hint: None, None
+                size: "250dp", "60dp"
+                theme_bg_color: "Custom"
+                md_bg_color: "white"
+                MDTextField:
+                    id: message_content
+                    mode: "rectangle"
+                    size_hint_x: None 
+                    width: 250
+                    theme_bg_color: "Custom"
+                    md_bg_color: "white"
+                    on_text_validate: app.create_messageLog(messageLog_friendID.text, message_content.text), app.update_messageLog()
+        MDIconButton:
+            id: messageLog_friendID
+            icon: "send"
+            md_bg_color: app.theme_cls.primary_color
+            theme_icon_color: "Custom"
+            theme_text_color: "ContrastParentBackground"
+            icon_color: 0,0,0,1
+            pos_hint: {"center_x": .90, "center_y": 0.055}
+            size_hint: (.14, .08) 
+            on_release: app.create_messageLog(messageLog_friendID.text, message_content.text), app.update_messageLog()
+
+<EditProfileScreen>
+    name: 'editProfileScreen'
+    MDFloatLayout:
+        MDTopAppBar:
+            title: "Edit Profile"
+            left_action_items: [["undo", lambda x: app.back_to_profile()]]
+            right_action_items: [["", "", ""]]
+            pos_hint: {'top': 1}
+            specific_text_color: app.theme_cls.primary_color
+            specific_text_hue: app.theme_cls.primary_hue
+            md_bg_color: 0,0,0,1
+
+        MDIconButton:
+            pos_hint: {"center_x": .15, "center_y": 0.78}
+            radius: (50, 50)
+            size_hint: .3, .18
+            on_release: app.edit_profile_pic(1)
+            FitImage:
+                source: "images/DP1.jpg"
+                radius: 60, 60, 60, 60
+        MDIconButton:
+            pos_hint: {"center_x": .5, "center_y": 0.78}
+            radius: (50, 50)
+            size_hint: .3, .18
+            on_release: app.edit_profile_pic(3)
+            FitImage:
+                source: "images/DP3.jpg"
+                radius: 60, 60, 60, 60
+        MDIconButton:
+            pos_hint: {"center_x": .85, "center_y": 0.78}
+            radius: (50, 50)
+            size_hint: .3, .18
+            on_release: app.edit_profile_pic(5)
+            FitImage:
+                source: "images/DP5.jpg"
+                radius: 60, 60, 60, 60
+        MDIconButton:
+            pos_hint: {"center_x": .15, "center_y": 0.6}
+            radius: (50, 50)
+            size_hint: .3, .18
+            on_release: app.edit_profile_pic(2)
+            FitImage:
+                source: "images/DP2.jpg"
+                radius: 60, 60, 60, 60
+        MDIconButton:
+            pos_hint: {"center_x": .5, "center_y": 0.6}
+            radius: (50, 50)
+            size_hint: .3, .18
+            on_release: app.edit_profile_pic(4)
+            FitImage:
+                source: "images/DP4.jpg"
+                radius: 60, 60, 60, 60
+        MDIconButton:
+            pos_hint: {"center_x": .85, "center_y": 0.6}
+            radius: (50, 50)
+            size_hint: .3, .18
+            on_release: app.edit_profile_pic(6)
+            FitImage:
+                source: "images/DP6.jpg"
+                radius: 60, 60, 60, 60
+
+        MDTextField:
+            id: fname_edit
+            hint_text: "Edit your First Name"
+            icon_left: "pencil"
+            pos_hint: {'center_x':0.5, 'center_y':0.465}
+            size_hint_x: None 
+            width: 200
+            md_bg_color: app.theme_cls.primary_dark
+            write_tab: False
+        MDTextField:
+            id: lname_edit
+            hint_text: "Edit your Last Name"
+            icon_left: "pencil"
+            pos_hint: {'center_x':0.5, 'center_y':0.365}
+            size_hint_x: None 
+            width: 200
+            md_bg_color: app.theme_cls.primary_dark
+            write_tab: False
+        MDTextField:
+            id: uname_edit
+            hint_text: "Edit your Username"
+            icon_left: "pencil"
+            pos_hint: {'center_x':0.5, 'center_y':0.265}
+            size_hint_x: None 
+            width: 200
+            md_bg_color: app.theme_cls.primary_dark
+            write_tab: False
+        MDTextField:
+            id: pass_edit
+            hint_text: "Edit your Password"
+            icon_left: "pencil"
+            pos_hint: {'center_x':0.5, 'center_y':0.165}
+            size_hint_x: None 
+            width: 200
+            md_bg_color: app.theme_cls.primary_dark
+            write_tab: False
+        MDRoundFlatButton:
+            md_bg_color: 0,0,0,1
+            line_color: 0,0,0,1
+            text_color: "white"
+            text: "Save" 
+            pos_hint: {'center_x':0.5, 'center_y':0.07}
+            font_size: 20
+            size_hint_x: 0.6
+            size_hint_y: 0.08
+            on_release: app.popup_editWarning(fname_edit.text, lname_edit.text, uname_edit.text, pass_edit.text)
