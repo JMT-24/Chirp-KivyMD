@@ -1,2 +1,7 @@
 # Chirp-KivyMD
-A mobile social media app made using KivyMD and Python
+An android social media app made using kivy and kivyMD
+
+commands to install the libraries used:
+
+pip install kivymd
+pip install kivy
